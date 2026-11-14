@@ -211,6 +211,18 @@
   .tier.a .pct{ color:var(--sage); }
   .tier.b .pct{ color:var(--gold); }
   .tier.c .pct{ color:#d97a6c; }
+
+  /* ===== no footer + food photo backgrounds ===== */
+  .slide{
+    padding-bottom:150px;
+    background:var(--shade), var(--photo, none) center/cover no-repeat, #000;
+    --shade:linear-gradient(rgba(0,0,0,.80), rgba(0,0,0,.88));
+  }
+  .slide > *{ position:relative; }
+  .slide > .top{ position:absolute; }
+  .slide::after{ bottom:46px; }
+  /* cover + CTA: photo shows through at the top, text sits on the dark lower half */
+  .cover, .cta{ --shade:linear-gradient(180deg, rgba(0,0,0,.15) 0%, rgba(0,0,0,.55) 32%, rgba(0,0,0,.93) 55%, #000 100%); justify-content:flex-end; }
 </style>
 </head>
 <body>
@@ -224,7 +236,7 @@
 <div class="deck" id="deck">
 
   <!-- ======================= 1 · COVER ======================= -->
-  <section class="slide cover">
+  <section class="slide cover" style="--photo:url(assets/food/cover.jpg)">
     <div class="top"><span class="tag" contenteditable>Fat loss food guide</span><span class="count"></span></div>
     <div class="eyebrow" contenteditable>What I actually eat</div>
     <h1 contenteditable>My <em>80/20</em> plate for fat loss.</h1>
@@ -233,11 +245,10 @@
       <img src="assets/augustine.jpg" alt="">
       <span contenteditable><b>Coach Augustine</b><br>Strength &amp; swim coach</span>
     </div>
-    <div class="foot"></div>
   </section>
 
   <!-- ======================= 2 · TIERS ======================= -->
-  <section class="slide tiers">
+  <section class="slide tiers" style="--photo:url(assets/food/plate.jpg)">
     <div class="top"><span class="tag" contenteditable>Fat loss food guide</span><span class="count"></span></div>
     <h2 contenteditable>The rule is <em>simple.</em></h2>
     <div class="tier a">
@@ -255,11 +266,10 @@
       <div class="name" contenteditable>Love it, but skip</div>
       <div class="desc" contenteditable>Low protein · high fat</div>
     </div>
-    <div class="foot"></div>
   </section>
 
   <!-- ======================= 3 · 80% ======================= -->
-  <section class="slide list foods">
+  <section class="slide list foods" style="--photo:url(assets/food/oats.jpg)">
     <div class="top"><span class="tag" contenteditable>80% · Everyday</span><span class="count"></span></div>
     <h2 contenteditable>What I eat <em>most days.</em></h2>
     <div class="pill" contenteditable>High protein · low fat · decent carbs</div>
@@ -271,11 +281,10 @@
       <li><span><b>Protein shake</b></span></li>
       <li><span><b>Fish slice &amp; spinach soup</b> + white rice or noodles</span></li>
     </ul>
-    <div class="foot"></div>
   </section>
 
   <!-- ======================= 4 · 20% ======================= -->
-  <section class="slide list foods sometimes">
+  <section class="slide list foods sometimes" style="--photo:url(assets/food/mala.jpg)">
     <div class="top"><span class="tag" contenteditable>20% · Sometimes</span><span class="count"></span></div>
     <h2 contenteditable>Still on the menu. <em>Order smart.</em></h2>
     <ul contenteditable>
@@ -284,11 +293,10 @@
       <li><span><b>Cai fan</b><span class="note">Pick lean protein and veg. Skip the curry gravy.</span></span></li>
       <li><span><b>Soup-based dishes</b><span class="note">Eat everything in the bowl, but leave most of the soup.</span></span></li>
     </ul>
-    <div class="foot"></div>
   </section>
 
   <!-- ======================= 5 · SKIP ======================= -->
-  <section class="slide list foods skip tight">
+  <section class="slide list foods skip tight" style="--photo:url(assets/food/noodles.jpg)">
     <div class="top"><span class="tag" contenteditable>0% · Skip</span><span class="count"></span></div>
     <h2 class="skip-head" contenteditable>Love these. <em>Still skip them.</em></h2>
     <div class="pill" contenteditable>Low protein · high fat</div>
@@ -300,20 +308,18 @@
       <li><span><b>Chicken chop / cutlet</b><span class="note">More batter and oil than actual meat.</span></span></li>
       <li><span><b>Korean hot plate chicken</b><span class="note">Decent protein, but the sauce and oil add up.</span></span></li>
     </ul>
-    <div class="foot"></div>
   </section>
 
   <!-- ======================= 6 · TIP 01 (SOUP) ======================= -->
-  <section class="slide point">
+  <section class="slide point" style="--photo:url(assets/food/soup.jpg)">
     <div class="top"><span class="tag" contenteditable>Cut the fat · Tip 1</span><span class="count"></span></div>
     <div class="num">01</div>
     <h2 contenteditable>Don't finish <em>the soup.</em></h2>
     <p contenteditable>The way most soups and broths are made, a lot of the oil ends up in the liquid. Eat the noodles, meat and veg. Leave most of the soup in the bowl.</p>
-    <div class="foot"></div>
   </section>
 
   <!-- ======================= 7 · MORE TIPS ======================= -->
-  <section class="slide list foods">
+  <section class="slide list foods" style="--photo:url(assets/food/berries.jpg)">
     <div class="top"><span class="tag" contenteditable>Cut the fat · Tips 2–6</span><span class="count"></span></div>
     <h2 contenteditable>5 more easy <em>fat cuts.</em></h2>
     <ul contenteditable>
@@ -323,21 +329,19 @@
       <li><span><b>Frozen berries or yoghurt</b> to curb late-night hunger</span></li>
       <li><span><b>Potatoes, pumpkin, carrots</b> for good carbs</span></li>
     </ul>
-    <div class="foot"></div>
   </section>
 
   <!-- ======================= 8 · QUOTE ======================= -->
-  <section class="slide quote">
+  <section class="slide quote" style="--photo:url(assets/food/chicken-rice.jpg)">
     <div class="top"><span class="tag" contenteditable>Real results</span><span class="count"></span></div>
     <div class="mark">“</div>
     <div class="stars">★★★★★</div>
     <blockquote contenteditable>Not only have I managed to shed a few kilos… he's taught me so much about nutrition and protein intake.</blockquote>
     <cite contenteditable><b>Jasmine</b> · Personal Training client</cite>
-    <div class="foot"></div>
   </section>
 
   <!-- ======================= 9 · CTA ======================= -->
-  <section class="slide cta">
+  <section class="slide cta" style="--photo:url(assets/food/cta.jpg)">
     <div class="top"><span class="tag" contenteditable>Your next step</span><span class="count"></span></div>
     <img src="assets/augustine.jpg" alt="">
     <h2 contenteditable>Save this for your next <em>hawker run.</em></h2>
@@ -347,19 +351,10 @@
       <span><svg viewBox="0 0 24 24"><path d="M6 3h12v18l-6-4.5L6 21z"/></svg><span contenteditable>Save for later</span></span>
       <span><svg viewBox="0 0 24 24"><path d="M21 3L10 14M21 3l-7 18-4-7-7-4z"/></svg><span contenteditable>Send to a makan kaki</span></span>
     </div>
-    <div class="foot"></div>
   </section>
 
 </div>
 
-<!-- shared footer, injected into every slide -->
-<template id="foot">
-  <div class="brand">
-    <svg viewBox="0 0 40 40"><circle cx="20" cy="20" r="19" fill="none" stroke="#C9A24A" stroke-width="1.5"/><path d="M6 24 Q11 19 16 24 T26 24 T36 24" stroke="#7E9B74" stroke-width="2.2" fill="none" stroke-linecap="round"/><path d="M11 13 L20 6 L29 13" stroke="#C9A24A" stroke-width="2.2" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg>
-    <b>Athletics &amp; Aquatics <em>Training</em></b>
-  </div>
-  <span class="swipe">swipe →</span>
-</template>
 
 <script src="https://cdn.jsdelivr.net/npm/html-to-image@1.11.11/dist/html-to-image.js"></script>
 <script>
@@ -370,9 +365,6 @@
     const f = document.createElement('div'); f.className = 'frame';
     s.before(f); f.appendChild(s);
     s.querySelector('.count').textContent = `${pad(i + 1)} / ${pad(slides.length)}`;
-    const foot = s.querySelector('.foot');
-    foot.appendChild(document.getElementById('foot').content.cloneNode(true));
-    if (i === slides.length - 1) foot.querySelector('.swipe').textContent = '@auggie_goh';
   });
 
   const zoom = document.getElementById('zoom');
