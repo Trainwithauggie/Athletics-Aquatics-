@@ -222,7 +222,10 @@
   .slide > .top{ position:absolute; }
   .slide::after{ bottom:46px; }
   /* cover + CTA: photo shows through at the top, text sits on the dark lower half */
-  .cover, .cta{ --shade:linear-gradient(180deg, rgba(0,0,0,.15) 0%, rgba(0,0,0,.55) 32%, rgba(0,0,0,.93) 55%, #000 100%); justify-content:flex-end; }
+  .cover, .cta{ --shade:linear-gradient(180deg, rgba(0,0,0,.75) 0%, rgba(0,0,0,.2) 12%, rgba(0,0,0,.3) 28%, rgba(0,0,0,.9) 52%, #000 100%); justify-content:flex-end; }
+  .cover{ background-size:auto, 165%, auto; background-position:center, 45% 92%, center; }
+  .cta{ background-size:auto, 130%, auto; background-position:center, center 30%, center; }
+  .skip{ --shade:linear-gradient(rgba(0,0,0,.86), rgba(0,0,0,.9)); }
 </style>
 </head>
 <body>
@@ -236,7 +239,7 @@
 <div class="deck" id="deck">
 
   <!-- ======================= 1 · COVER ======================= -->
-  <section class="slide cover" style="--photo:url(assets/food/cover.jpg)">
+  <section class="slide cover" style="--photo:url(assets/food/cereal.jpg)">
     <div class="top"><span class="tag" contenteditable>Fat loss food guide</span><span class="count"></span></div>
     <div class="eyebrow" contenteditable>What I actually eat</div>
     <h1 contenteditable>My <em>80/20</em> plate for fat loss.</h1>
@@ -269,7 +272,7 @@
   </section>
 
   <!-- ======================= 3 · 80% ======================= -->
-  <section class="slide list foods" style="--photo:url(assets/food/oats.jpg)">
+  <section class="slide list foods" style="--photo:url(assets/food/cereal.jpg)">
     <div class="top"><span class="tag" contenteditable>80% · Everyday</span><span class="count"></span></div>
     <h2 contenteditable>What I eat <em>most days.</em></h2>
     <div class="pill" contenteditable>High protein · low fat · decent carbs</div>
@@ -284,7 +287,7 @@
   </section>
 
   <!-- ======================= 4 · 20% ======================= -->
-  <section class="slide list foods sometimes" style="--photo:url(assets/food/mala.jpg)">
+  <section class="slide list foods sometimes" style="--photo:url(assets/food/soup.jpg)">
     <div class="top"><span class="tag" contenteditable>20% · Sometimes</span><span class="count"></span></div>
     <h2 contenteditable>Still on the menu. <em>Order smart.</em></h2>
     <ul contenteditable>
@@ -296,7 +299,7 @@
   </section>
 
   <!-- ======================= 5 · SKIP ======================= -->
-  <section class="slide list foods skip tight" style="--photo:url(assets/food/noodles.jpg)">
+  <section class="slide list foods skip tight" style="--photo:url(assets/food/fried.jpg)">
     <div class="top"><span class="tag" contenteditable>0% · Skip</span><span class="count"></span></div>
     <h2 class="skip-head" contenteditable>Love these. <em>Still skip them.</em></h2>
     <div class="pill" contenteditable>Low protein · high fat</div>
@@ -311,7 +314,7 @@
   </section>
 
   <!-- ======================= 6 · TIP 01 (SOUP) ======================= -->
-  <section class="slide point" style="--photo:url(assets/food/soup.jpg)">
+  <section class="slide point" style="--photo:url(assets/food/curry-soup.jpg)">
     <div class="top"><span class="tag" contenteditable>Cut the fat · Tip 1</span><span class="count"></span></div>
     <div class="num">01</div>
     <h2 contenteditable>Don't finish <em>the soup.</em></h2>
@@ -319,7 +322,7 @@
   </section>
 
   <!-- ======================= 7 · MORE TIPS ======================= -->
-  <section class="slide list foods" style="--photo:url(assets/food/berries.jpg)">
+  <section class="slide list foods" style="--photo:url(assets/food/cereal.jpg)">
     <div class="top"><span class="tag" contenteditable>Cut the fat · Tips 2–6</span><span class="count"></span></div>
     <h2 contenteditable>5 more easy <em>fat cuts.</em></h2>
     <ul contenteditable>
@@ -332,7 +335,7 @@
   </section>
 
   <!-- ======================= 8 · QUOTE ======================= -->
-  <section class="slide quote" style="--photo:url(assets/food/chicken-rice.jpg)">
+  <section class="slide quote" style="--photo:url(assets/food/soup.jpg)">
     <div class="top"><span class="tag" contenteditable>Real results</span><span class="count"></span></div>
     <div class="mark">“</div>
     <div class="stars">★★★★★</div>
@@ -341,7 +344,7 @@
   </section>
 
   <!-- ======================= 9 · CTA ======================= -->
-  <section class="slide cta" style="--photo:url(assets/food/cta.jpg)">
+  <section class="slide cta" style="--photo:url(assets/food/curry-soup.jpg)">
     <div class="top"><span class="tag" contenteditable>Your next step</span><span class="count"></span></div>
     <img src="assets/augustine.jpg" alt="">
     <h2 contenteditable>Save this for your next <em>hawker run.</em></h2>
