@@ -78,12 +78,14 @@
   .cover h1{ margin-bottom:28px; }
 
   /* present: type only */
-  .present{ justify-content:center; padding-bottom:230px; }
-  .present .still{ font:600 118px/1.08 'Fraunces',serif; }
+  .present{ justify-content:flex-end; padding-bottom:210px; }
+  .present .photo::after{ height:62%; background:linear-gradient(transparent, rgba(0,0,0,.8) 35%, rgba(0,0,0,.92)); }
+  .present .still span:nth-child(1){ color:var(--ink) !important; }
+  .present .still{ font:600 100px/1.06 'Fraunces',serif; }
   .present .still span{ display:block; }
   .present .still em{ color:var(--pale-yellow); }
   .present .still span:nth-child(1){ color:var(--muted); }
-  .present p{ margin-top:56px; color:var(--muted); }
+  .present p{ margin-top:40px; color:var(--muted); }
 
   /* CTA */
   .cta{ justify-content:center; align-items:center; text-align:center; padding-bottom:230px; }
@@ -263,6 +265,7 @@
 
   <!-- 14 · PRESENT -->
   <section class="slide present" data-step="Now">
+    <div class="photo" style="--ph:1350px"><img src="assets/journey/now.jpg" style="--pos:50% 0%" alt=""></div>
     <div class="top"><span class="tag" contenteditable>Present</span><span class="count"></span></div>
     <div class="still" contenteditable>
       <span>Still learning.</span>
@@ -271,20 +274,6 @@
       <span><em>Still trying.</em></span>
     </div>
     <p contenteditable>Fitness isn't a finish line. It's what you keep showing up for.</p>
-    <div class="timeline"></div>
-  </section>
-
-  <!-- 15 · CTA -->
-  <section class="slide cta" data-step="Now">
-    <div class="top"><span class="tag" contenteditable>Your turn</span><span class="count"></span></div>
-    <img src="assets/augustine.jpg" alt="">
-    <h2 contenteditable>Wherever you're starting, <em>start.</em></h2>
-    <p class="sub" contenteditable>I coach busy parents in strength, and swimmers of all ages. Free online consultation, link in bio.</p>
-    <div class="handle" contenteditable>Follow @auggie_goh</div>
-    <div class="actions">
-      <span><svg viewBox="0 0 24 24"><path d="M6 3h12v18l-6-4.5L6 21z"/></svg><span contenteditable>Save for motivation</span></span>
-      <span><svg viewBox="0 0 24 24"><path d="M21 3L10 14M21 3l-7 18-4-7-7-4z"/></svg><span contenteditable>Send to a gym buddy</span></span>
-    </div>
     <div class="timeline"></div>
   </section>
 
