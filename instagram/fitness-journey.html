@@ -1,0 +1,318 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Fitness Journey — Athletics &amp; Aquatics Training</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,600;0,9..144,700;1,9..144,400;1,9..144,600&family=Work+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+<!--
+  STORY CAROUSEL — same brand system as carousel-template.html.
+  Each chapter slide: photo on top, year + weight + story below,
+  and a timeline along the bottom that lights up the current year.
+  Click any text to edit it, then "Download all slides".
+  To swap a photo, change the img src (files are in assets/journey/).
+  Tweak framing per photo with style="--pos: X% Y%".
+-->
+<style>
+  :root{
+    --bg:#000; --ink:#F4F1EA; --muted:#A9A6A0; --gold:#C9A24A;
+    --sage:#7E9B74; --sage-deep:#60794F; --pale-yellow:#F2E4A6;
+    --line:rgba(244,241,234,0.14); --z:0.42;
+  }
+  *{box-sizing:border-box;}
+  body{ margin:0; background:#151517; color:var(--ink); font-family:'Work Sans',sans-serif; }
+
+  /* editor chrome (not exported) */
+  .toolbar{ position:sticky; top:0; z-index:10; display:flex; gap:12px; align-items:center; flex-wrap:wrap;
+    padding:14px 24px; background:#0A0A0B; border-bottom:1px solid var(--line); font-size:14px; }
+  .toolbar strong{ font-family:'Fraunces',serif; font-size:16px; margin-right:auto; }
+  .toolbar button{ background:var(--sage); color:#08100f; border:0; border-radius:2px; padding:10px 16px;
+    font:600 14px 'Work Sans',sans-serif; cursor:pointer; }
+  .toolbar label{ color:var(--muted); display:flex; gap:6px; align-items:center; }
+  .deck{ display:flex; gap:28px; padding:32px 24px 60px; overflow-x:auto; }
+  .frame{ flex:none; width:calc(1080px * var(--z)); height:calc(1350px * var(--z)); }
+  .frame > .slide{ transform:scale(var(--z)); transform-origin:top left; }
+  [contenteditable]:focus{ outline:2px dashed var(--gold); outline-offset:6px; }
+
+  /* ---------- slide 1080 × 1350 ---------- */
+  .slide{ position:relative; width:1080px; height:1350px; overflow:hidden; background:var(--bg);
+    display:flex; flex-direction:column; justify-content:flex-end; padding:150px 96px 200px; }
+  .slide::before{ content:""; position:absolute; z-index:3; left:0; right:0; top:0; height:10px;
+    background:repeating-linear-gradient(90deg, var(--sage) 0 138px, transparent 138px 174px,
+      var(--gold) 174px 198px, transparent 198px 234px); }
+  .slide > *{ position:relative; z-index:2; }
+  .top{ position:absolute !important; top:52px; left:96px; right:96px; display:flex; justify-content:space-between;
+    font-size:24px; letter-spacing:.18em; text-transform:uppercase; color:var(--ink);
+    text-shadow:0 1px 12px rgba(0,0,0,.8); }
+  .tag{ color:var(--gold); font-weight:600; }
+
+  /* photo area */
+  .photo{ position:absolute !important; z-index:0 !important; left:0; right:0; top:0; height:var(--ph, 900px); display:flex; gap:6px; }
+  .photo img{ flex:1; min-width:0; height:100%; object-fit:cover; object-position:var(--pos, 50% 30%); display:block; }
+  .photo::before{ content:""; position:absolute; inset:0 0 auto; height:180px;
+    background:linear-gradient(rgba(0,0,0,.65), transparent); z-index:1; }
+  .photo::after{ content:""; position:absolute; inset:auto 0 0; height:55%;
+    background:linear-gradient(transparent, rgba(0,0,0,.75) 45%, #000); z-index:1; }
+  .photo .cap{ position:absolute; z-index:2; top:110px; font:italic 600 34px 'Fraunces',serif; color:var(--pale-yellow);
+    text-shadow:0 2px 14px rgba(0,0,0,.9); }
+
+  /* text */
+  h1,h2{ font-family:'Fraunces',serif; margin:0; font-weight:600; line-height:1.04; letter-spacing:-.01em; text-wrap:balance; }
+  h1{ font-size:112px; } h2{ font-size:80px; }
+  h1 em,h2 em{ font-style:italic; color:var(--pale-yellow); }
+  p{ margin:0; font-size:35px; line-height:1.5; text-wrap:pretty; }
+  p.sub{ color:var(--muted); }
+  .when{ display:flex; align-items:baseline; gap:24px; margin-bottom:18px; }
+  .year{ font:italic 600 66px/1 'Fraunces',serif; color:var(--gold); }
+  .kg{ font:600 28px 'Work Sans',sans-serif; color:#08100f; background:var(--sage); padding:8px 18px; border-radius:30px; transform:translateY(-8px); }
+  .chapter h2{ margin-bottom:28px; }
+  .stat{ display:flex; align-items:baseline; gap:20px; margin-bottom:22px; }
+  .stat b{ font:600 150px/0.9 'Fraunces',serif; color:var(--pale-yellow); letter-spacing:-.02em; }
+  .stat span{ font:italic 400 40px 'Fraunces',serif; color:var(--gold); }
+
+  /* cover */
+  .cover .photo{ --ph:1000px; }
+  .cover .photo .cap.l{ left:96px; } .cover .photo .cap.r{ left:calc(50% + 40px); }
+  .cover h1{ margin-bottom:28px; }
+
+  /* present: type only */
+  .present{ justify-content:center; padding-bottom:230px; }
+  .present .still{ font:600 118px/1.08 'Fraunces',serif; }
+  .present .still span{ display:block; }
+  .present .still em{ color:var(--pale-yellow); }
+  .present .still span:nth-child(1){ color:var(--muted); }
+  .present p{ margin-top:56px; color:var(--muted); }
+
+  /* CTA */
+  .cta{ justify-content:center; align-items:center; text-align:center; padding-bottom:230px; }
+  .cta img{ width:240px; height:240px; border-radius:50%; border:3px solid var(--gold); object-fit:cover; margin-bottom:48px; }
+  .cta h2{ font-size:84px; margin-bottom:32px; }
+  .cta .handle{ display:inline-block; margin:48px 0 44px; padding:22px 48px; background:var(--sage); color:#08100f;
+    font:600 44px 'Work Sans',sans-serif; border-radius:3px; }
+  .cta .actions{ display:flex; gap:56px; justify-content:center; font-size:30px; color:var(--muted); }
+  .cta .actions span{ display:flex; align-items:center; gap:14px; }
+  .cta .actions svg{ width:44px; height:44px; stroke:var(--pale-yellow); fill:none; stroke-width:1.8; }
+
+  /* timeline — the line runs edge to edge so it continues from slide to slide */
+  .timeline{ position:absolute !important; left:0; right:0; bottom:58px; height:80px; }
+  .timeline::before{ content:""; position:absolute; left:0; right:0; top:22px; height:2px; background:rgba(126,155,116,.5); }
+  .timeline ol{ list-style:none; margin:0; padding:0 70px; display:flex; justify-content:space-between; position:relative; }
+  .timeline li{ width:80px; display:flex; flex-direction:column; align-items:center; gap:14px; font-size:21px; color:#6e6c68; }
+  .timeline li::before{ content:""; width:14px; height:14px; margin-top:16px; border-radius:50%; background:#3a4a36; }
+  .timeline li.done{ color:var(--muted); } .timeline li.done::before{ background:var(--sage); }
+  .timeline li.on{ color:var(--pale-yellow); font-weight:600; font-size:24px; }
+  .timeline li.on::before{ width:28px; height:28px; margin-top:9px; background:var(--gold); box-shadow:0 0 0 7px rgba(201,162,74,.25); }
+</style>
+</head>
+<body>
+
+<div class="toolbar">
+  <strong>Story carousel · 1080 × 1350</strong>
+  <label>Zoom <input id="zoom" type="range" min="0.25" max="1" step="0.01" value="0.42"></label>
+  <button id="dl">Download all slides (PNG)</button>
+</div>
+
+<div class="deck">
+
+  <!-- 1 · COVER: then vs now -->
+  <section class="slide cover" data-step="">
+    <div class="photo">
+      <img src="assets/journey/2011.jpg" style="--pos:40% 15%" alt="">
+      <img src="assets/journey/now.jpg" style="--pos:50% 10%" alt="">
+      <span class="cap l" contenteditable>2011 · 55 kg</span>
+      <span class="cap r" contenteditable>Today</span>
+    </div>
+    <div class="top"><span class="tag" contenteditable>My fitness journey</span><span class="count"></span></div>
+    <h1 contenteditable>15 years. <em>Still learning.</em></h1>
+    <p class="sub" contenteditable>From clueless in the gym to elite Turf Games. Here's everything in between.</p>
+    <div class="timeline"></div>
+  </section>
+
+  <!-- 2 · 2011 -->
+  <section class="slide chapter" data-step="2011">
+    <div class="photo"><img src="assets/journey/2011.jpg" style="--pos:40% 18%" alt=""></div>
+    <div class="top"><span class="tag" contenteditable>Chapter 1</span><span class="count"></span></div>
+    <div class="when"><span class="year" contenteditable>2011</span><span class="kg" contenteditable>55 kg</span></div>
+    <h2 contenteditable>Poly days. <em>Clueless.</em></h2>
+    <p contenteditable>Started the gym with friends. We'd drop in with no plan, no knowledge and no consistency. Just guessing.</p>
+    <div class="timeline"></div>
+  </section>
+
+  <!-- 3 · 2014 -->
+  <section class="slide chapter" data-step="2014">
+    <div class="photo"><img src="assets/journey/2014.jpg" style="--pos:50% 40%" alt=""></div>
+    <div class="top"><span class="tag" contenteditable>Chapter 2</span><span class="count"></span></div>
+    <div class="when"><span class="year" contenteditable>2014</span><span class="kg" contenteditable>58–60 kg</span></div>
+    <h2 contenteditable>Army days.</h2>
+    <p contenteditable>Most of my fitness came from camp: Tabata circuits and a lot of running. Honestly, I ran more than I went to the gym.</p>
+    <div class="timeline"></div>
+  </section>
+
+  <!-- 4 · 2015–2018 -->
+  <section class="slide chapter" data-step="2015">
+    <div class="photo">
+      <img src="assets/journey/2015.jpg" style="--pos:30% 20%" alt="">
+      <img src="assets/journey/2018-may.jpg" style="--pos:50% 25%" alt="">
+    </div>
+    <div class="top"><span class="tag" contenteditable>Chapter 3</span><span class="count"></span></div>
+    <div class="when"><span class="year" contenteditable>2015–2018</span><span class="kg" contenteditable>60 → 55 kg</span></div>
+    <h2 contenteditable>The <em>lost</em> years.</h2>
+    <p contenteditable>No gym at all. Work and drinks almost every night. By May 2018 I wasn't eating well and dropped to 55–58 kg.</p>
+    <div class="timeline"></div>
+  </section>
+
+  <!-- 5 · 2018 Nov -->
+  <section class="slide chapter" data-step="2018">
+    <div class="photo"><img src="assets/journey/2018-nov.jpg" style="--pos:45% 30%" alt=""></div>
+    <div class="top"><span class="tag" contenteditable>Chapter 4</span><span class="count"></span></div>
+    <div class="when"><span class="year" contenteditable>Nov 2018</span><span class="kg" contenteditable>75 kg</span></div>
+    <h2 contenteditable>Looked fit. <em>Wasn't.</em></h2>
+    <p contenteditable>6 months of gym and a big bulk. My arms looked nice, but I didn't like how I moved. I couldn't run, and anything heavier than bodyweight was a struggle.</p>
+    <div class="timeline"></div>
+  </section>
+
+  <!-- 6 · 2020 -->
+  <section class="slide chapter" data-step="2020">
+    <div class="photo"><img src="assets/journey/2020.jpg" style="--pos:60% 75%" alt=""></div>
+    <div class="top"><span class="tag" contenteditable>Chapter 5 · Turning point</span><span class="count"></span></div>
+    <div class="when"><span class="year" contenteditable>2020</span><span class="kg" contenteditable>70 kg</span></div>
+    <h2 contenteditable>Gyms closed. <em>My mindset shifted.</em></h2>
+    <p contenteditable>Covid pushed me into calisthenics. I failed constantly, but with no distractions I could focus. It took 6 months to hold a 10-second handstand.</p>
+    <div class="timeline"></div>
+  </section>
+
+  <!-- 7 · 2023 -->
+  <section class="slide chapter" data-step="2023">
+    <div class="photo"><img src="assets/journey/2023.jpg" style="--pos:50% 30%" alt=""></div>
+    <div class="top"><span class="tag" contenteditable>Chapter 6</span><span class="count"></span></div>
+    <div class="when"><span class="year" contenteditable>2023</span><span class="kg" contenteditable>68 kg</span></div>
+    <h2 contenteditable>Became <em>a coach.</em></h2>
+    <p contenteditable>Started coaching at F45. But there was so much more to learn and pick up, so I kept building.</p>
+    <div class="timeline"></div>
+  </section>
+
+  <!-- 8 · 2024 CrossFit -->
+  <section class="slide chapter" data-step="2024">
+    <div class="photo"><img src="assets/journey/2024-crossfit.jpg" style="--pos:50% 40%" alt=""></div>
+    <div class="top"><span class="tag" contenteditable>Chapter 7</span><span class="count"></span></div>
+    <div class="when"><span class="year" contenteditable>2024</span></div>
+    <h2 contenteditable>CrossFit <em>humbled me.</em></h2>
+    <p contenteditable>I failed almost every WOD. Every session left nothing in the tank.</p>
+    <div class="timeline"></div>
+  </section>
+
+  <!-- 9 · 2024 May -->
+  <section class="slide chapter" data-step="2024">
+    <div class="photo"><img src="assets/journey/2024-challenge.jpg" style="--pos:50% 45%" alt=""></div>
+    <div class="top"><span class="tag" contenteditable>Chapter 8</span><span class="count"></span></div>
+    <div class="when"><span class="year" contenteditable>May 2024</span></div>
+    <div class="stat"><b contenteditable>2:11</b><span contenteditable>my first half marathon</span></div>
+    <p contenteditable>Took on a 50-pull-ups-a-day challenge and started half marathon training. Anything past 10 km was intimidating. I ran it anyway.</p>
+    <div class="timeline"></div>
+  </section>
+
+  <!-- 10 · 2024 June -->
+  <section class="slide chapter" data-step="2024">
+    <div class="photo">
+      <img src="assets/journey/2024-spartan.jpg" style="--pos:55% 30%" alt="">
+      <img src="assets/journey/2024-hyrox.jpg" style="--pos:32% 30%" alt="">
+      <span class="cap l" style="left:56px" contenteditable>First Spartan</span>
+      <span class="cap r" style="left:calc(50% + 30px)" contenteditable>First Hyrox</span>
+    </div>
+    <div class="top"><span class="tag" contenteditable>Chapter 9</span><span class="count"></span></div>
+    <div class="when"><span class="year" contenteditable>June 2024</span></div>
+    <div class="stat"><b contenteditable>1:31</b><span contenteditable>first Hyrox finish</span></div>
+    <p contenteditable>Two firsts in one month: my first Spartan race and my first Hyrox.</p>
+    <div class="timeline"></div>
+  </section>
+
+  <!-- 11 · 2025 -->
+  <section class="slide chapter" data-step="2025">
+    <div class="photo">
+      <img src="assets/journey/2025-run.jpg" style="--pos:50% 75%" alt="">
+      <img src="assets/journey/2025-lift.jpg" style="--pos:45% 50%" alt="">
+    </div>
+    <div class="top"><span class="tag" contenteditable>Chapter 10</span><span class="count"></span></div>
+    <div class="when"><span class="year" contenteditable>2025</span></div>
+    <h2 contenteditable>More runs. <em>More lifts.</em></h2>
+    <p contenteditable>No shortcuts. Just stacking the work, week after week.</p>
+    <div class="timeline"></div>
+  </section>
+
+  <!-- 12 · 2025 Aug -->
+  <section class="slide chapter" data-step="2025">
+    <div class="photo"><img src="assets/journey/2025-turf.jpg" style="--pos:50% 40%" alt=""></div>
+    <div class="top"><span class="tag" contenteditable>Chapter 11</span><span class="count"></span></div>
+    <div class="when"><span class="year" contenteditable>Aug 2025</span></div>
+    <h2 contenteditable>First <em>Turf Games.</em></h2>
+    <p contenteditable>Teamwork and community. Competing with a team behind me.</p>
+    <div class="timeline"></div>
+  </section>
+
+  <!-- 13 · 2026 Aug -->
+  <section class="slide chapter" data-step="2026">
+    <div class="photo"><img src="assets/journey/2026-elite.jpg" style="--pos:50% 35%" alt=""></div>
+    <div class="top"><span class="tag" contenteditable>Chapter 12</span><span class="count"></span></div>
+    <div class="when"><span class="year" contenteditable>Aug 2026</span></div>
+    <h2 contenteditable>First <em>elite</em> Turf Games.</h2>
+    <p contenteditable>15 years after walking into a gym with no idea what I was doing.</p>
+    <div class="timeline"></div>
+  </section>
+
+  <!-- 14 · PRESENT -->
+  <section class="slide present" data-step="Now">
+    <div class="top"><span class="tag" contenteditable>Present</span><span class="count"></span></div>
+    <div class="still" contenteditable>
+      <span>Still learning.</span>
+      <span>Still running.</span>
+      <span>Still lifting.</span>
+      <span><em>Still trying.</em></span>
+    </div>
+    <p contenteditable>Fitness isn't a finish line. It's what you keep showing up for.</p>
+    <div class="timeline"></div>
+  </section>
+
+  <!-- 15 · CTA -->
+  <section class="slide cta" data-step="Now">
+    <div class="top"><span class="tag" contenteditable>Your turn</span><span class="count"></span></div>
+    <img src="assets/augustine.jpg" alt="">
+    <h2 contenteditable>Wherever you're starting, <em>start.</em></h2>
+    <p class="sub" contenteditable>I coach busy parents in strength, and swimmers of all ages. Free online consultation, link in bio.</p>
+    <div class="handle" contenteditable>Follow @auggie_goh</div>
+    <div class="actions">
+      <span><svg viewBox="0 0 24 24"><path d="M6 3h12v18l-6-4.5L6 21z"/></svg><span contenteditable>Save for motivation</span></span>
+      <span><svg viewBox="0 0 24 24"><path d="M21 3L10 14M21 3l-7 18-4-7-7-4z"/></svg><span contenteditable>Send to a gym buddy</span></span>
+    </div>
+    <div class="timeline"></div>
+  </section>
+
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/html-to-image@1.11.11/dist/html-to-image.js"></script>
+<script>
+  const YEARS = ['2011','2014','2015','2018','2020','2023','2024','2025','2026','Now'];
+  const slides = [...document.querySelectorAll('.slide')];
+  const pad = n => String(n).padStart(2, '0');
+  slides.forEach((s, i) => {
+    const f = document.createElement('div'); f.className = 'frame'; s.before(f); f.appendChild(s);
+    s.querySelector('.count').textContent = `${pad(i + 1)} / ${pad(slides.length)}`;
+    const cur = YEARS.indexOf(s.dataset.step);
+    s.querySelector('.timeline').innerHTML = '<ol>' + YEARS.map((y, k) =>
+      `<li class="${k === cur ? 'on' : k < cur ? 'done' : ''}">${y === 'Now' ? 'Now' : (k === 0 || k === cur ? y : "'" + y.slice(2))}</li>`
+    ).join('') + '</ol>';
+  });
+  const zoom = document.getElementById('zoom');
+  zoom.oninput = () => document.documentElement.style.setProperty('--z', zoom.value);
+  document.getElementById('dl').onclick = async () => {
+    document.activeElement.blur();
+    for (const [i, s] of slides.entries()) {
+      const url = await htmlToImage.toPng(s, { width:1080, height:1350, pixelRatio:1, style:{ transform:'none' } });
+      const a = document.createElement('a'); a.href = url; a.download = `journey-${pad(i + 1)}.png`; a.click();
+      await new Promise(r => setTimeout(r, 300));
+    }
+  };
+</script>
+</body>
+</html>
