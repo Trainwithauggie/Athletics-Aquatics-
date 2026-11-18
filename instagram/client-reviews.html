@@ -1,0 +1,224 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Client Reviews — Athletics &amp; Aquatics Training</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,600;0,9..144,700;1,9..144,400;1,9..144,600&family=Work+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+<!--
+  CLIENT REVIEWS CAROUSEL — same brand system as carousel-template.html.
+  One review per slide: a short pull-quote headline, the full review,
+  then the client's name and service. Reviews are copied word for word
+  from the website. To add a review, duplicate a <section class="slide review"> block.
+  Click any text to edit, then "Download all slides".
+-->
+<style>
+  :root{
+    --bg:#000; --ink:#F4F1EA; --muted:#A9A6A0; --gold:#C9A24A;
+    --sage:#7E9B74; --sage-deep:#60794F; --pale-yellow:#F2E4A6;
+    --line:rgba(244,241,234,0.14); --z:0.42;
+  }
+  *{box-sizing:border-box;}
+  body{ margin:0; background:#151517; color:var(--ink); font-family:'Work Sans',sans-serif; }
+
+  /* editor chrome (not exported) */
+  .toolbar{ position:sticky; top:0; z-index:10; display:flex; gap:12px; align-items:center; flex-wrap:wrap;
+    padding:14px 24px; background:#0A0A0B; border-bottom:1px solid var(--line); font-size:14px; }
+  .toolbar strong{ font-family:'Fraunces',serif; font-size:16px; margin-right:auto; }
+  .toolbar button{ background:var(--sage); color:#08100f; border:0; border-radius:2px; padding:10px 16px;
+    font:600 14px 'Work Sans',sans-serif; cursor:pointer; }
+  .toolbar label{ color:var(--muted); display:flex; gap:6px; align-items:center; }
+  .deck{ display:flex; gap:28px; padding:32px 24px 60px; overflow-x:auto; }
+  .frame{ flex:none; width:calc(1080px * var(--z)); height:calc(1350px * var(--z)); }
+  .frame > .slide{ transform:scale(var(--z)); transform-origin:top left; }
+  [contenteditable]:focus{ outline:2px dashed var(--gold); outline-offset:6px; }
+
+  /* ---------- slide 1080 × 1350 ---------- */
+  .slide{ position:relative; width:1080px; height:1350px; overflow:hidden; background:var(--bg);
+    display:flex; flex-direction:column; justify-content:center; padding:150px 96px 170px; }
+  .slide::before{ content:""; position:absolute; z-index:3; left:0; right:0; top:0; height:10px;
+    background:repeating-linear-gradient(90deg, var(--sage) 0 138px, transparent 138px 174px,
+      var(--gold) 174px 198px, transparent 198px 234px); }
+  /* continuous wave along the bottom — period 270px divides 1080, so it flows across slides */
+  .slide::after{ content:""; position:absolute; z-index:3; left:0; right:0; bottom:56px; height:40px;
+    background:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='270' height='40'%3E%3Cpath d='M0 20 Q67.5 0 135 20 T270 20' fill='none' stroke='%237E9B74' stroke-width='3' opacity='.55'/%3E%3C/svg%3E") repeat-x; }
+  .slide > *{ position:relative; z-index:2; }
+  .top{ position:absolute !important; top:52px; left:96px; right:96px; display:flex; justify-content:space-between;
+    font-size:24px; letter-spacing:.18em; text-transform:uppercase; color:var(--muted); text-shadow:0 1px 12px rgba(0,0,0,.8); }
+  .tag{ color:var(--gold); font-weight:600; }
+
+  h1,h2{ font-family:'Fraunces',serif; margin:0; font-weight:600; line-height:1.06; letter-spacing:-.01em; text-wrap:balance; }
+  h1{ font-size:116px; } h2{ font-size:68px; }
+  h1 em,h2 em{ font-style:italic; color:var(--pale-yellow); }
+  p{ margin:0; font-size:36px; line-height:1.5; text-wrap:pretty; }
+  .stars{ color:var(--gold); font-size:44px; letter-spacing:8px; }
+
+  /* ---- cover ---- */
+  .cover{ justify-content:flex-end; padding-bottom:180px; }
+  .cover .photo{ position:absolute !important; z-index:0 !important; inset:0; }
+  .cover .photo img{ width:100%; height:100%; object-fit:cover; object-position:50% 0%; display:block; }
+  .cover .photo::after{ content:""; position:absolute; inset:0;
+    background:linear-gradient(rgba(0,0,0,.55) 0%, rgba(0,0,0,.1) 14%, rgba(0,0,0,.25) 32%, rgba(0,0,0,.88) 55%, #000 80%); }
+  .cover .stars{ margin-bottom:28px; }
+  .cover h1{ margin-bottom:32px; }
+  .cover p{ color:var(--muted); font-size:38px; }
+  .cover .chips{ display:flex; gap:16px; margin-top:44px; }
+  .chip{ display:inline-block; font:600 26px 'Work Sans',sans-serif; padding:10px 22px; border-radius:40px; }
+  .chip.pt{ background:var(--sage); color:#08100f; }
+  .chip.swim{ border:2px solid var(--pale-yellow); color:var(--pale-yellow); }
+
+  /* ---- review ---- */
+  .review .mark{ font:600 300px/0.6 'Fraunces',serif; color:var(--gold); height:120px; margin-bottom:10px; }
+  .review .stars{ margin-bottom:34px; }
+  .review h2{ margin-bottom:40px; }
+  .review blockquote{ margin:0 0 52px; padding-left:34px; border-left:4px solid var(--gold); }
+  .review blockquote p{ font-size:33px; color:#d9d5cc; }
+  .review blockquote p + p{ margin-top:18px; }
+  .who{ display:flex; align-items:center; gap:24px; }
+  .avatar{ width:92px; height:92px; border-radius:50%; display:grid; place-items:center; flex:none;
+    font:italic 600 46px 'Fraunces',serif; color:#08100f; background:var(--pale-yellow); }
+  .who b{ display:block; font:600 40px 'Fraunces',serif; margin-bottom:8px; }
+  /* swim slides: subtle pool lane lines in the background */
+  .review.swim{ background:
+      repeating-linear-gradient(90deg, transparent 0 214px, rgba(126,155,116,.07) 214px 218px), var(--bg); }
+
+  /* ---- summary ---- */
+  .summary h2{ font-size:84px; margin-bottom:60px; }
+  .summary ul{ list-style:none; margin:0; padding:0; display:flex; flex-direction:column; gap:40px; }
+  .summary li{ display:flex; gap:30px; align-items:flex-start; font-size:38px; line-height:1.35; }
+  .summary li::before{ content:"★"; flex:none; color:var(--gold); font-size:40px; line-height:1.2; }
+  .summary li b{ color:var(--pale-yellow); font-weight:600; display:block; }
+  .summary li span{ color:var(--muted); font-size:31px; }
+
+  /* ---- CTA ---- */
+  .cta{ align-items:center; text-align:center; }
+  .cta img{ width:240px; height:240px; border-radius:50%; border:3px solid var(--gold); object-fit:cover; object-position:50% 10%; margin-bottom:48px; }
+  .cta h2{ font-size:88px; margin-bottom:36px; }
+  .cta .offers{ display:flex; flex-direction:column; gap:18px; margin-bottom:52px; }
+  .cta .offers p{ font-size:36px; }
+  .cta .offers p b{ color:var(--pale-yellow); font-weight:600; }
+  .cta .handle{ display:inline-block; padding:22px 48px; background:var(--sage); color:#08100f;
+    font:600 44px 'Work Sans',sans-serif; border-radius:3px; margin-bottom:28px; }
+  .cta small{ font-size:28px; color:var(--muted); }
+</style>
+</head>
+<body>
+
+<div class="toolbar">
+  <strong>Client reviews · 1080 × 1350</strong>
+  <label>Zoom <input id="zoom" type="range" min="0.25" max="1" step="0.01" value="0.42"></label>
+  <button id="dl">Download all slides (PNG)</button>
+</div>
+
+<div class="deck">
+
+  <!-- 1 · COVER -->
+  <section class="slide cover">
+    <div class="photo"><img src="assets/journey/now.jpg" alt=""></div>
+    <div class="top"><span class="tag" contenteditable>Client reviews</span><span class="count"></span></div>
+    <div class="stars">★★★★★</div>
+    <h1 contenteditable>Don't take <em>my</em> word for it.</h1>
+    <p contenteditable>Real reviews from my personal training and swim clients.</p>
+    <div class="chips"><span class="chip pt">Personal Training</span><span class="chip swim">Adult Swimming</span></div>
+  </section>
+
+  <!-- 2 · JASMINE -->
+  <section class="slide review">
+    <div class="top"><span class="tag" contenteditable>Review 1 of 4</span><span class="count"></span></div>
+    <div class="mark">“</div>
+    <div class="stars">★★★★★</div>
+    <h2 contenteditable>Stronger, lighter, and <em>squatting better than ever!</em></h2>
+    <blockquote contenteditable>
+      <p>I'm really grateful to have Auggie as my personal trainer on my weight loss journey! 💪 Not only have I managed to shed a few kilos, my squat has improved tremendously and I feel so much stronger, especially in my core.</p>
+      <p>He also shares workout routines with me whenever I'm too busy to make it for a session, and he's taught me so much about nutrition and protein intake.</p>
+    </blockquote>
+    <div class="who"><div class="avatar">J</div><div><b contenteditable>Jasmine</b><span class="chip pt">Personal Training</span></div></div>
+  </section>
+
+  <!-- 3 · BRYAN -->
+  <section class="slide review">
+    <div class="top"><span class="tag" contenteditable>Review 2 of 4</span><span class="count"></span></div>
+    <div class="mark">“</div>
+    <div class="stars">★★★★★</div>
+    <h2 contenteditable>I feel like I can <em>move better now.</em></h2>
+    <blockquote contenteditable>
+      <p>Last night I played a basketball match, I was expecting to feel fatigue quickly but I actually felt good during the game. Thanks to your PT, I feel like I can move better now.</p>
+    </blockquote>
+    <div class="who"><div class="avatar">B</div><div><b contenteditable>Bryan</b><span class="chip pt">Personal Training</span></div></div>
+  </section>
+
+  <!-- 4 · WING FAI -->
+  <section class="slide review swim">
+    <div class="top"><span class="tag" contenteditable>Review 3 of 4</span><span class="count"></span></div>
+    <div class="mark">“</div>
+    <div class="stars">★★★★★</div>
+    <h2 contenteditable>Patient, friendly, and <em>explained techniques clearly.</em></h2>
+    <blockquote contenteditable>
+      <p>Had a great experience learning from coach Augustine! He was patient, friendly, and explained techniques clearly, which made the whole learning process much easier and more enjoyable. Highly recommend him!</p>
+    </blockquote>
+    <div class="who"><div class="avatar">W</div><div><b contenteditable>Wing Fai</b><span class="chip swim">Adult Swimming</span></div></div>
+  </section>
+
+  <!-- 5 · TYLER -->
+  <section class="slide review swim">
+    <div class="top"><span class="tag" contenteditable>Review 4 of 4</span><span class="count"></span></div>
+    <div class="mark">“</div>
+    <div class="stars">★★★★★</div>
+    <h2 contenteditable>Technique, <em>not just going through the motions.</em></h2>
+    <blockquote contenteditable>
+      <p>Training style is very systematic and easy to follow. He made sure you understand technique instead of going through motions. He's also patient, encouraging and genuinely funny, which makes lessons enjoyable!</p>
+    </blockquote>
+    <div class="who"><div class="avatar">T</div><div><b contenteditable>Tyler</b><span class="chip swim">Adult Swimming</span></div></div>
+  </section>
+
+  <!-- 6 · SUMMARY -->
+  <section class="slide summary">
+    <div class="top"><span class="tag" contenteditable>In their words</span><span class="count"></span></div>
+    <h2 contenteditable>What clients <em>keep mentioning.</em></h2>
+    <ul contenteditable>
+      <li><span><b>Real results</b>Shed a few kilos, stronger core, better squat</span></li>
+      <li><span><b>Moving better</b>Less fatigue, more energy in everyday sport</span></li>
+      <li><span><b>Clear technique</b>Systematic and easy to follow, never just going through the motions</span></li>
+      <li><span><b>Patient &amp; encouraging</b>And genuinely funny, so sessions are enjoyable</span></li>
+      <li><span><b>Support between sessions</b>Workout routines and nutrition guidance when life gets busy</span></li>
+    </ul>
+  </section>
+
+  <!-- 7 · CTA -->
+  <section class="slide cta">
+    <div class="top"><span class="tag" contenteditable>Your turn</span><span class="count"></span></div>
+    <img src="assets/journey/now.jpg" alt="">
+    <h2 contenteditable>Your review <em>could be next.</em></h2>
+    <div class="offers">
+      <p contenteditable><b>Personal Training:</b> free online consultation</p>
+      <p contenteditable><b>Swimming:</b> free assessment</p>
+    </div>
+    <div class="handle" contenteditable>DM @auggie_goh</div>
+    <small contenteditable>or tap the link in bio to enquire</small>
+  </section>
+
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/html-to-image@1.11.11/dist/html-to-image.js"></script>
+<script>
+  const slides = [...document.querySelectorAll('.slide')];
+  const pad = n => String(n).padStart(2, '0');
+  slides.forEach((s, i) => {
+    const f = document.createElement('div'); f.className = 'frame'; s.before(f); f.appendChild(s);
+    s.querySelector('.count').textContent = `${pad(i + 1)} / ${pad(slides.length)}`;
+  });
+  const zoom = document.getElementById('zoom');
+  zoom.oninput = () => document.documentElement.style.setProperty('--z', zoom.value);
+  document.getElementById('dl').onclick = async () => {
+    document.activeElement.blur();
+    for (const [i, s] of slides.entries()) {
+      const url = await htmlToImage.toPng(s, { width:1080, height:1350, pixelRatio:1, style:{ transform:'none' } });
+      const a = document.createElement('a'); a.href = url; a.download = `reviews-${pad(i + 1)}.png`; a.click();
+      await new Promise(r => setTimeout(r, 300));
+    }
+  };
+</script>
+</body>
+</html>
